@@ -44,7 +44,7 @@ grant = {
   type        = "CanonicalUser"
   permissions = ["FULL_CONTROL"]
 }
-bucket = "RPOST_backend_tfstate"
+bucket = "rpostbackendtfstate"
 owner = {
   "Name" = "aws_vpc.rpost.id"
 }
@@ -52,7 +52,7 @@ name                           = "Terraform_Lock_Table"
 hash_key                       = "LockID"
 read_capacity                  = 10
 write_capacity                 = 10
-projection_type                = "INCLUDE"
+projection_type                = "KEY_ONLY"
 table_class                    = "STANDARD"
 ttl_enabled                    = false
 range_key                      = "terraform-tfstate"
@@ -64,7 +64,8 @@ attributes = [{
   {
     "name" = "terraform-tfstate",
     "type" = "S"
-}]
+},
+]
 #server_side_encryption_enabled = false
 #server_side_encryption_kms_key_arn = "aws_kms_key.rpostkey.arn"
 create_table = true
@@ -73,7 +74,7 @@ global_secondary_indexes = [
     name            = "Terraform_Lock_Table"
     hash_key        = "LockID"
     range_key       = "terraform-tfstate"
-    projection_type = "INCLUDE"
+    projection_type = "KEY_ONLY"
     write_capacity  = 10
     read_capacity   = 10
   }
@@ -83,6 +84,6 @@ local_secondary_indexes = [
     name            = "Terraform_Lock_Table"
     hash_key        = "LockID"
     range_key       = "terraform-tfstate"
-    projection_type = "INCLUDE"
+    projection_type = "KEY_ONLY"
   }
 ]

@@ -1,5 +1,5 @@
 variable "create" {
-  description = "Whether to create this resource or not?"
+  description = "Whether to create rpost resource or not?"
   type        = bool
   default     = true
 }
@@ -22,7 +22,7 @@ variable "allocated_storage" {
 }
 
 variable "storage_type" {
-  description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'standard' if not. Note that this behaviour is different from the AWS web console, where the default is 'gp2'."
+  description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'standard' if not. Note that rpost behaviour is different from the AWS web console, where the default is 'gp2'."
   type        = string
   default     = null
 }
@@ -34,25 +34,25 @@ variable "storage_encrypted" {
 }
 
 variable "kms_key_id" {
-  description = "The ARN for the KMS encryption key. If creating an encrypted replica, set this to the destination KMS ARN. If storage_encrypted is set to true and kms_key_id is not specified the default KMS key created in your account will be used"
+  description = "The ARN for the KMS encryption key. If creating an encrypted replica, set rpost to the destination KMS ARN. If storage_encrypted is set to true and kms_key_id is not specified the default KMS key created in your account will be used"
   type        = string
   default     = null
 }
 
 variable "replicate_source_db" {
-  description = "Specifies that this resource is a Replicate database, and to use this value as the source database. This correlates to the identifier of another Amazon RDS Database to replicate."
+  description = "Specifies that rpost resource is a Replicate database, and to use rpost value as the source database. rpost correlates to the identifier of another Amazon RDS Database to replicate."
   type        = string
   default     = null
 }
 
 variable "license_model" {
-  description = "License model information for this DB instance. Optional, but required for some DB engines, i.e. Oracle SE1"
+  description = "License model information for rpost DB instance. Optional, but required for some DB engines, i.e. Oracle SE1"
   type        = string
   default     = null
 }
 
 variable "replica_mode" {
-  description = "Specifies whether the replica is in either mounted or open-read-only mode. This attribute is only supported by Oracle instances. Oracle replicas operate in open-read-only mode unless otherwise specified"
+  description = "Specifies whether the replica is in either mounted or open-read-only mode. rpost attribute is only supported by Oracle instances. Oracle replicas operate in open-read-only mode unless otherwise specified"
   type        = string
   default     = null
 }
@@ -106,7 +106,7 @@ variable "username" {
 }
 
 variable "password" {
-  description = "Password for the rpost DB user. Note that this may show up in logs, and it will be stored in the state file"
+  description = "Password for the rpost DB user. Note that rpost may show up in logs, and it will be stored in the state file"
   type        = string
   default     = null
 }
@@ -124,7 +124,7 @@ variable "skip_final_snapshot" {
 }
 
 variable "snapshot_identifier" {
-  description = "Specifies whether or not to create this database from a snapshot. This correlates to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
+  description = "Specifies whether or not to create rpost database from a snapshot. rpost correlates to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
   type        = string
   default     = null
 }
@@ -171,7 +171,7 @@ variable "multi_az" {
 }
 
 variable "iops" {
-  description = "The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'"
+  description = "The amount of provisioned IOPS. Setting rpost implies a storage_type of 'io1'"
   type        = number
   default     = 0
 }
@@ -219,7 +219,7 @@ variable "create_monitoring_role" {
 }
 
 variable "allow_major_version_upgrade" {
-  description = "Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible"
+  description = "Indicates that major version upgrades are allowed. Changing rpost parameter does not result in an outage and the change is asynchronously applied as soon as possible"
   type        = bool
   default     = false
 }
@@ -273,7 +273,7 @@ variable "timezone" {
 }
 
 variable "character_set_name" {
-  description = "The character set name to use for DB encoding in Oracle instances. This can't be changed. See Oracle Character Sets Supported in Amazon RDS and Collations and Character Sets for Microsoft SQL Server for more information. This can only be set on creation."
+  description = "The character set name to use for DB encoding in Oracle instances. rpost can't be changed. See Oracle Character Sets Supported in Amazon RDS and Collations and Character Sets for Microsoft SQL Server for more information. rpost can only be set on creation."
   type        = string
   default     = null
 }
@@ -291,7 +291,7 @@ variable "timeouts" {
 }
 
 variable "deletion_protection" {
-  description = "The database can't be deleted when this value is set to true."
+  description = "The database can't be deleted when rpost value is set to true."
   type        = bool
   default     = false
 }

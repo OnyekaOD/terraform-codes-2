@@ -1,7 +1,6 @@
 locals {
   max_subnet_length = max(
     length(var.private_subnets),
-    length(var.public_subnets),
   )
   nat_gateway_count = var.single_nat_gateway ? 1 : var.one_nat_gateway_per_az ? length(var.azs) : local.max_subnet_length
 
@@ -20,8 +19,8 @@ resource "aws_vpc" "rpost" {
   cidr_block                     = var.cidr
   enable_dns_hostnames           = var.enable_dns_hostnames
   enable_dns_support             = var.enable_dns_support
-  enable_classiclink             = var.enable_classiclink
-  enable_classiclink_dns_support = var.enable_classiclink_dns_support
+ # enable_classiclink             = var.enable_classiclink
+  #enable_classiclink_dns_support = var.enable_classiclink_dns_support
 
   tags = merge(
     { "Name" = var.name },
@@ -94,6 +93,7 @@ resource "aws_vpc_dhcp_options_association" "rpost" {
   vpc_id          = local.vpc_id
   dhcp_options_id = aws_vpc_dhcp_options.rpost[0].id
 }
+/*
 ################################################################################
 # Default route
 ################################################################################
@@ -118,7 +118,7 @@ resource "aws_default_route_table" "default" {
       nat_gateway_id = lookup(route.value, "nat_gateway_id", null)
       #network_interface_id      = lookup(route.value, "network_interface_id", null)
       #transit_gateway_id        = lookup(route.value, "transit_gateway_id", null)
-      #vpc_endpoint_id           = lookup(route.value, "vpc_endpoint_id", null)
+      vpc_endpoint_id           = lookup(route.value, "vpc_endpoint_id", null)
       #vpc_peering_connection_id = lookup(route.value, "vpc_peering_connection_id", null)
     }
   }
@@ -133,7 +133,7 @@ resource "aws_default_route_table" "default" {
     var.tags,
     var.default_route_table_tags,
   )
-}
+}*/
 ################################################################################
 # Internet Gateway
 ################################################################################
@@ -549,16 +549,17 @@ resource "aws_network_acl_rule" "database_outbound" {
   cidr_block      = lookup(var.database_outbound_acl_rules[count.index], "cidr_block", null)
   ipv6_cidr_block = lookup(var.database_outbound_acl_rules[count.index], "ipv6_cidr_block", null)
 }*/
+
 ################################################################################
 # NAT Gateway
 ################################################################################
 
 locals {
-  nat_gateway_ips = var.reuse_nat_ips ? var.external_nat_ip_ids : try(aws_eip.nat[*].id, [])
+  nat_gateway_ips = var.reuse_nat_ips ? var.external_nat_ip_ids : try(aws_eip.rpost[*].id, [])
 }
 
-resource "aws_eip" "nat" {
-  count = local.create_vpc && var.enable_nat_gateway && false == var.reuse_nat_ips ? local.nat_gateway_count : 2
+resource "aws_eip" "rpost" {
+  count = local.create_vpc && var.enable_nat_gateway && var.reuse_nat_ips ? local.nat_gateway_count : 0
 
   vpc = true
 
@@ -742,3 +743,36 @@ resource "aws_default_vpc" "rpost" {
     var.default_vpc_tags,
   )
 }*/
+################################################################################
+resource "aws_security_group" "allow_tls" {
+  name = "allow_tls"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = aws_vpc.rpost[0].id
+
+
+  dynamic "ingress" {
+    iterator = port
+    for_each = var.ingressrules
+    content {
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  dynamic "egress" {
+    iterator = port
+    for_each = var.egressrules
+    content {
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  tags = {
+    Name = "allow_tls"
+  }
+}

@@ -1,5 +1,5 @@
 create = true
-vpc_id = "infrastructure.Vpc_module.vpc_id"
+vpc_id = "module.vpc.vpc_id.id"
 endpoints = {
     s3 = {
       service = "s3"
@@ -14,7 +14,7 @@ endpoints = {
     },
 }
 security_group_ids = ["data.aws_security_group.default.id"]
-subnet_ids = ["infrastructure.Vpc_modules.private_subnets.ids"]
+subnet_ids = ["aws_subnet.public.id"]
 tags = {
   "Name" = "vpc-endpoints"
 }

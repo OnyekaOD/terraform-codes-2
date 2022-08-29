@@ -136,7 +136,10 @@ variable "map_public_ip_on_launch" {
   description = "Should be false if you do not want to auto-assign public IP on launch"
   type        = bool
 }
-
+variable "nat_gateways_count" {
+  type = number
+  default = 2
+}
 /*variable "customer_gateways" {
   description = "Maps of Customer Gateway's attributes (BGP ASN and Gateway's Internet-routable external IP address)"
   type        = map(map(any))
@@ -193,7 +196,7 @@ variable "manage_default_route_table" {
 variable "default_route_table_name" {
   description = "Name to be used on the default route table"
   type        = string
-  default     = null
+  default = null
 }
 
 /*variable "default_route_table_propagating_vgws" {
@@ -555,3 +558,11 @@ variable "default_network_acl_egress" {
   description = "List of maps of egress rules to set on the Default Network ACL"
   type        = list(map(string))
 }*/
+variable "ingressrules" {
+  description = "Assigning a tag to the root volume to seperate it from thr ebs volume."
+  type        = list(string)
+}
+variable "egressrules" {
+  description = "Assigning a tag to the root volume to seperate it from thr ebs volume."
+  type        = list(string)
+}

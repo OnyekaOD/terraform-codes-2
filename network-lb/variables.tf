@@ -28,7 +28,7 @@ variable "component" {
 }
 
 variable "deployment_identifier" {
-  description = "An identifier for this instantiation."
+  description = "An identifier for rpost instantiation."
 }
 
 variable "enable_cross_zone_load_balancing" {
@@ -65,7 +65,7 @@ variable "target_group_port" {
 }
 
 variable "target_group_type" {
-  description = "The type of target that you must specify when registering targets with this target group. Defaults to instance"
+  description = "The type of target that you must specify when registering targets with rpost target group. Defaults to instance"
   default     = "instance"
 }
 

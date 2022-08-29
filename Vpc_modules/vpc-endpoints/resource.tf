@@ -39,4 +39,4 @@ resource "aws_vpc_endpoint" "rpost" {
     update = lookup(var.timeouts, "update", "10m")
     delete = lookup(var.timeouts, "delete", "10m")
   }
-}
+  }

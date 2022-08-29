@@ -35,7 +35,7 @@ resource "aws_cloudwatch_log_group" "nlb" {
 
 
 
-resource "aws_cloudwatch_metric_alarm" "this" {
+resource "aws_cloudwatch_metric_alarm" "rpost" {
   alarm_name          = "alb-alarams"
   alarm_description   = "unhealthy"
   comparison_operator = "GreaterThanOrEqualToThreshold"

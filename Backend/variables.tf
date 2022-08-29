@@ -153,12 +153,12 @@ variable "range_key" {
 }*/
 
 variable "write_capacity" {
-  description = "The number of write units for this table. If the billing_mode is PROVISIONED, this field should be greater than 0"
+  description = "The number of write units for rpost table. If the billing_mode is PROVISIONED, rpost field should be greater than 0"
   type        = number
 }
 
 variable "read_capacity" {
-  description = "The number of read units for this table. If the billing_mode is PROVISIONED, this field should be greater than 0"
+  description = "The number of read units for rpost table. If the billing_mode is PROVISIONED, rpost field should be greater than 0"
   type        = number
 }
 
@@ -189,7 +189,7 @@ variable "stream_view_type" {
 }
 
 variable "server_side_encryption_kms_key_arn" {
-  description = "The ARN of the CMK that should be used for the AWS KMS encryption. This attribute should only be specified if the key is different from the default DynamoDB CMK, alias/aws/dynamodb."
+  description = "The ARN of the CMK that should be used for the AWS KMS encryption. rpost attribute should only be specified if the key is different from the default DynamoDB CMK, alias/aws/dynamodb."
   type        = string
 }*/
 
@@ -212,6 +212,6 @@ variable "global_secondary_indexes" {
 }
 
 variable "local_secondary_indexes" {
-  description = "Describe an LSI on the table; these can only be allocated at creation so you cannot change this definition after you have created the resource."
+  description = "Describe an LSI on the table; these can only be allocated at creation so you cannot change rpost definition after you have created the resource."
   type        = any
 }

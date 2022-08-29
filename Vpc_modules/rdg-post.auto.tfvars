@@ -7,8 +7,8 @@ dhcp_options_tags = {
 }
 enable_dns_hostnames           = true
 enable_dns_support             = true
-enable_classiclink             = true
-enable_classiclink_dns_support = true
+enable_classiclink             = false
+enable_classiclink_dns_support = false
 tags = {
   "Environment" = "staging",
   "Name"        = "rdg_rpost"
@@ -76,9 +76,9 @@ azs = ["eu-west-1a", "eu-west-1b"]
 private_route_table_tags = {
   "Name" = "RDG_RPOST_private_route_table"
 }
-public_subnets          = ["10.0.10.0/24", "10.0.11.0/24"]
+public_subnets          = ["10.0.1.0/24", "10.0.3.0/24"]
 map_public_ip_on_launch = true
-private_subnets         = ["10.0.40.0/24", "10.0.41.0/24"]
+private_subnets         = ["10.0.4.0/24", "10.0.5.0/24"]
 public_acl_tags = {
   "Name" = "RDG_RPOST-pub_acl"
 }
@@ -152,9 +152,10 @@ private_outbound_acl_rules = [{
     cidr_block  = "0.0.0.0/0"
   }
 ]
-reuse_nat_ips          = true
-external_nat_ips       = ["10.0.0.10", "10.0.0.11"]
-external_nat_ip_ids    = ["nbyueguuii223", "yg78egfyef235"]
+#allocation_id = ["aws_eip.eip[*].id"]
+reuse_nat_ips          = false
+external_nat_ips       = ["10.0.1.20", "10.0.3.21"]
+external_nat_ip_ids    = ["(aws_eip.nat[0].id)", "(aws_eip.nat[1].id)" ]
 enable_nat_gateway     = true
 single_nat_gateway     = false
 one_nat_gateway_per_az = true
